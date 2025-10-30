@@ -4,6 +4,30 @@ API used to transform unstructured text into JSON by using AI.
 - `#todo` mean they are still missing to be designed/implemented before they are added to the `README.md`
 - Use it moderately for Ben's wallet sake
 
+# Set Up
+1. Start virtual environment
+```bash
+python -m venv .venv
+```
+2. Activate virtual environment (always before running)
+macOS/Linux:
+```bash
+source .venv/bin/activate
+```
+Windows:
+```bash
+.venv\Scripts\activate
+```
+3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+4. Initialize .env (#TODO)
+```bash
+uvicorn main:app --reload
+```
+5. Run app
+
 # Headers
 - `Content-Type: application/json`
 - Allow all origins
