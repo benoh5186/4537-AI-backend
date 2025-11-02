@@ -42,7 +42,7 @@ class WebApiApp:
     
     def __add_routers(self, routers):
         for router in routers:
-            self.app.include_router(router)
+            self.app.include_router(router, prefix="/v1")
 
     def __add_middlewares(self):
         self.app.add_middleware(
