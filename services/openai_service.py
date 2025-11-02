@@ -3,7 +3,7 @@ import os
 import openai
 from typing import Any, Dict
 from .ai_service import AIService
-from messages.en import ErrorMsgs
+from messages.en import EnMsgs
 
 class OpenAIService(AIService):
     """
@@ -40,7 +40,7 @@ class OpenAIService(AIService):
         
         self.__api_key = os.getenv("OPENAI_API_KEY")
         if not self.__api_key:
-            raise ValueError(ErrorMsgs.MISSING_API_KEY)
+            raise ValueError(EnMsgs.MISSING_API_KEY)
 
         self.model: openai.OpenAI = openai.AsyncOpenAI(
             api_key=self.__api_key
@@ -61,10 +61,7 @@ class OpenAIService(AIService):
         )
 
         content = response.output_text
-        print(response) # TODO: for debugging, delete this later
-        print(content) # TODO: for debugging, delete this later
-
         try:
             return json.loads(content)
         except json.JSONDecodeError:
-            raise ValueError(ErrorMsgs.INVALID_JSON_RES)
+            raise ValueError(EnMsgs.INVALID_JSON_RES)
