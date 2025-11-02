@@ -4,7 +4,7 @@ API used to transform unstructured text into JSON by using AI.
 - `#todo` mean they are still missing to be designed/implemented before they are added to the `README.md`
 - Use it moderately for Ben's wallet sake
 
-# Set Up
+# Setup
 1. Start virtual environment
 ```bash
 python -m venv .venv
@@ -22,15 +22,24 @@ Windows:
 ```bash
 pip install -r requirements.txt
 ```
-4. Initialize .env (#TODO)
-```bash
-python app.py
+4. Initialize .env with the necessary env variables
+```
+PORT
+DEBUG
+OPENAI_API_KEY
+OPENAI_MODEL
 ```
 5. Run app
+```bash
+python -m app
+```
 
 # Tasks
+- [ ] Using the language doesn't actually work yet
+- [ ] Properly parse and give back informative error messages instead of just dumping everything in `data`
 - [ ] Validation chain of inputs
 - [ ] Validation chain of chatgpt output
+  - [ ] Server errors and differentiate different error types
 
 # Headers
 - `Content-Type: application/json`
