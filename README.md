@@ -24,9 +24,13 @@ pip install -r requirements.txt
 ```
 4. Initialize .env (#TODO)
 ```bash
-uvicorn main:app --reload
+python app.py
 ```
 5. Run app
+
+# Tasks
+- [ ] Validation chain of inputs
+- [ ] Validation chain of chatgpt output
 
 # Headers
 - `Content-Type: application/json`
