@@ -7,7 +7,7 @@ from services.std_response import StdResponse
 _prefix = "/" + Path(__file__).parent.name
 router = APIRouter(prefix=_prefix)
 
-@router.post("/")
+@router.post("")
 async def parse_text_to_json(req: StdRequest):
     model = OpenAIService()
     try:
