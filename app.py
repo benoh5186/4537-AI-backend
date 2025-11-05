@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import uvicorn
@@ -13,8 +13,8 @@ class WebApiApp:
     Use uvicorn with the instance variables app, port, host and debug.
     """
     
-    __DEFAULT_PORT = 8000
-    __LOCALHOST = "0.0.0.0"
+    __DEFAULT_PORT = 8080
+    __LOCALHOST = "127.0.0.1"
 
     _instance = None
     _initialized = False
@@ -50,6 +50,13 @@ class WebApiApp:
             allow_origins=["*"],
             allow_methods=["*"]
         )
+        
+        @self.app.middleware("http")
+        async def log_requests(req: Request, call_next):
+            print("Incoming request:", req.method, req.url.path)
+            response = await call_next(req)
+            return response
+
         
 
 web_api_app = WebApiApp()
