@@ -14,7 +14,7 @@ class WebApiApp:
     """
     
     __DEFAULT_PORT = 8080
-    __LOCALHOST = "127.0.0.1"
+    __DEFAULT_HOST = "0.0.0.0" # localhost
 
     _instance = None
     _initialized = False
@@ -32,7 +32,7 @@ class WebApiApp:
 
         self.app = FastAPI()
         self.port = int(os.getenv("PORT", self.__DEFAULT_PORT))
-        self.host = os.getenv("HOST", self.__LOCALHOST)
+        self.host = os.getenv("HOST", self.__DEFAULT_HOST)
         self.debug = os.getenv("DEBUG", False).lower() == "true"
 
         self.__add_middlewares()
