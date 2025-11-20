@@ -109,7 +109,7 @@ The JSON object returned is created based on the syntax and semantics of the tex
 {
 	"status": "error",
 	"code": 400,
-	"message": "Invalid Text: `text` cannot be empty or contain only whitespace characters.",
+	"message": "[Bad Request]  Parameter `text` cannot be empty or contain only whitespace characters.",
 	"error": true,
 	"data": null
 }
@@ -128,7 +128,7 @@ The JSON object returned is created based on the syntax and semantics of the tex
 {
 	"status": "error",
 	"code": 400,
-	"message": "Invalid Input: Dangerous prompt instructions are not allowed.",
+	"message": "[Bad Request] Dangerous prompt instructions are not allowed.",
 	"error": true,
 	"data": null
 }
@@ -147,7 +147,7 @@ The JSON object returned is created based on the syntax and semantics of the tex
 {
 	"status": "error",
 	"code": 400,
-	"message": "Invalid Input: Invalid target language.",
+	"message": "[Bad Request] Invalid target language.",
 	"error": true,
 	"data": null
 }
@@ -230,7 +230,7 @@ The JSON object returned is created based on the syntax and semantics of the tex
 {
 	"status": "error",
 	"code": 400,
-	"message": "Invalid Input: `text` cannot contain ASCII control characters.",
+	"message": "[Bad Request] Parameter `text` cannot contain ASCII control characters.",
 	"error": true,
 	"data": null
 }
@@ -259,7 +259,7 @@ The JSON object returned is created based on the syntax and semantics of the tex
 {
 	"status": "error",
 	"code": 400,
-	"message": "Invalid Input: Invalid target language.",
+	"message": "[Bad Request] Invalid target language.",
 	"error": true,
 	"data": null
 }
@@ -282,7 +282,7 @@ The JSON object returned is created based on the syntax and semantics of the tex
 {
 	"status": "error",
 	"code": 400,
-	"message": "Invalid Input: Schema does not follow JSON Schema Standard.",
+	"message": "[Bad Request] Schema does not follow JSON Schema Standard.",
 	"error": true,
 	"data": null
 }
@@ -311,7 +311,7 @@ The JSON object returned is created based on the syntax and semantics of the tex
 {
 	"status": "error",
 	"code": 422,
-	"message": "Unprocessable Input: Missing required data in input text to produce a valid output.",
+	"message": "[Unprocessable Entity Error] Missing required data in input text to produce a valid output.",
 	"error": true,
 	"data": null
 }
