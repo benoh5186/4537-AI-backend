@@ -7,5 +7,9 @@ class EnMsgs:
 
     STD_ERR_STATUS = "error"
     STD_ERR_RES = "There was an error in your request"
-    ERR_INVALID_LANG = "Invalid Input: Invalid target language."
-    ERR_WHITESPC_TEXT = "Invalid Text: `text` cannot be empty or contain only whitespace characters."
+    
+    BAD_REQ_ERR_PREFIX = "[Bad Request]"
+    UNPROC_ENTITY_ERR_PREFIX = "[Unprocessable Entity Error]"
+    
+    ERR_INVALID_LANG = "Invalid target language."
+    ERR_WHITESPC_TEXT = "Parameter `text` cannot be empty or contain only whitespace characters."

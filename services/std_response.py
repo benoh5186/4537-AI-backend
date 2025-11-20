@@ -12,9 +12,11 @@ class StdResponse(BaseModel):
     error: Optional[bool] = None
     data: Optional[Dict[str, Any]] = None
     
+    # Have to type annotate or else BaseModel doesn't accept it
     STD_SUCC_CODE: ClassVar[int] = 200
     STD_ERR_CODE: ClassVar[int] = 400
-
+    UNPROC_ENTITY_ERR_CODE: ClassVar[int] = 422
+    
     @classmethod
     def success(cls, 
         data: Dict[str, Any], 
@@ -41,4 +43,27 @@ class StdResponse(BaseModel):
             message=message, 
             error=True, 
             data=data
+        )
+
+    @classmethod
+    def error_bad_req(cls, 
+        data: Dict[str, Any] = None,
+        message: str = EnMsgs.STD_ERR_RES
+    ):
+        return cls.error(
+            data=data,
+            message=f"{EnMsgs.BAD_REQ_ERR_PREFIX} {message}"
+            # No code needed because bad request is already default error code
+        )
+
+    @classmethod
+    def error_unprocessable_entity(cls, 
+        data: Dict[str, Any] = None,
+        message: str = EnMsgs.STD_ERR_RES
+    ):
+        return cls.error(
+            data=data,
+            message=f"{EnMsgs.UNPROC_ENTITY_ERR_PREFIX} {message}",
+            code=cls.UNPROC_ENTITY_ERR_CODE
+            # No code needed because bad request is already default error code
         )
