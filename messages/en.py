@@ -7,6 +7,7 @@ class EnMsgs:
 
     STD_ERR_STATUS = "error"
     STD_ERR_RES = "There was an error in your request"
+    NOT_FOUND_RES = "Resource not found"
     
     BAD_REQ_ERR_PREFIX = "[Bad Request]"
     UNPROC_ENTITY_ERR_PREFIX = "[Unprocessable Entity Error]"

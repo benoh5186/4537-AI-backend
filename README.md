@@ -348,7 +348,7 @@ The API rejects an input if it's:
 ```
 
 ## On Error
-- #todo `error` can return an object with error logs or more information about the error.
+- `error` can return an object with error logs or more information about the error. Usually under the parameter `err_info`
 ```json
 {
 	"status": "error",

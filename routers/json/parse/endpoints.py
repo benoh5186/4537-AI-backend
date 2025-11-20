@@ -7,6 +7,7 @@ from services.std_response import StdResponse
 _prefix = "/" + Path(__file__).parent.name
 router = APIRouter(prefix=_prefix)
 
+# /json/parse
 @router.post("")
 async def parse_text_to_json(req: StdRequest):
     model = OpenAIService()
@@ -14,5 +15,6 @@ async def parse_text_to_json(req: StdRequest):
         response = await model.generate(req.text)
         return StdResponse.success(response)
     except ValueError as e:
-        response = "ValueError"
-        return StdResponse.error({"err_info" : e})
+        return StdResponse.error_bad_req_res(
+            message=f"Value Error: {e}"
+        )
