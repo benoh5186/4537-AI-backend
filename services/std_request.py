@@ -1,20 +1,18 @@
 from typing import Annotated, ClassVar, List
 from pydantic import BaseModel, Field, field_validator
 from messages.en import EnMsgs
+from .ai_service import AIService
 
 class StdRequest(BaseModel):
     """
     Helper class to standardize and validate HTTP requests.
     """
     text: Annotated[str, Field(min_length=1)]
-    lang: str = "def"
-    # TODO: study how to use this
-    # lang: Literal["en", "def"] = "def"
+    lang: str
     
     # Annotate class variables in pydantic class or they won't work
     # Use frozenset because dynamic types aren't allowed as class vars 
     # in pydantic classes
-    VALID_LANGS: ClassVar[frozenset] = frozenset({"en", "def"})
 
     @field_validator("text", mode="before")
     @classmethod
@@ -34,6 +32,6 @@ class StdRequest(BaseModel):
     @field_validator("lang")
     @classmethod
     def validate_lang(cls, lang):
-        if lang not in cls.VALID_LANGS:
+        if lang not in AIService.SUPPORTED_LANGS:
             raise ValueError(EnMsgs.ERR_INVALID_LANG)
         return lang

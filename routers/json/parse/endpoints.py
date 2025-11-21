@@ -12,8 +12,8 @@ router = APIRouter(prefix=_prefix)
 async def parse_text_to_json(req: StdRequest):
     model = OpenAIService()
     try:
-        response = await model.generate(req.text)
-        return StdResponse.success(response)
+        response = await model.generate(req.text, req.lang)
+        return StdResponse.success_res(response)
     except ValueError as e:
         return StdResponse.error_bad_req_res(
             message=f"Value Error: {e}"

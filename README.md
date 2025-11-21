@@ -35,8 +35,8 @@ python -m app
 ```
 
 # Tasks
-- [ ] Using the language doesn't actually work yet
-- [ ] Add 404 default error
+- [X] Using the language doesn't actually work yet
+- [X] Add 404 default error
 - [ ] Properly parse and give back informative error messages instead of just dumping everything in `data`
 - [ ] Validation chain of inputs
 - [ ] Validation chain of chatgpt output
