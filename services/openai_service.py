@@ -48,15 +48,18 @@ class OpenAIService(AIService):
         
         self._initialized = True
 
-    async def generate(self, prompt: str) -> Dict[str, Any]:
+    async def generate(self, prompt: str, lang: str = "def") -> Dict[str, Any]:
         """
         Generates a JSON response from the prompt.
         :param prompt: String used as input to generate the JSON.
         :throws ValueError: If the response from the AI model is not in a json format.
         """
+        if lang == "def":
+            lang = self.DEFAULT_LANG
+        instructions = self.prompt_in_lang(lang)
         response = await self.model.responses.create(
             model=self.model_name,
-            instructions=self.system_prompt,
+            instructions=instructions,
             input=prompt
         )
 
