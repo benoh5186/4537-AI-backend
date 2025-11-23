@@ -1,5 +1,6 @@
-from typing import Annotated, ClassVar, List
+from typing import Annotated, Any
 from pydantic import BaseModel, Field, field_validator
+from jsonschema import Draft202012Validator, exceptions as schema_err
 from messages.en import EnMsgs
 from .ai_service import AIService
 
@@ -14,6 +15,7 @@ class StdRequest(BaseModel):
     # Use frozenset because dynamic types aren't allowed as class vars 
     # in pydantic classes
 
+    # Done before any "text" parameter validation
     @field_validator("text", mode="before")
     @classmethod
     def strip_text(cls, text):
@@ -35,3 +37,20 @@ class StdRequest(BaseModel):
         if lang not in AIService.SUPPORTED_LANGS:
             raise ValueError(EnMsgs.ERR_INVALID_LANG)
         return lang
+    
+class SchemedRequest(StdRequest):
+    """
+    Helper class to standardize and validate HTTP requests with schemas.
+    """
+    schema: dict[str, Any]
+
+    @field_validator("schema")
+    @classmethod
+    def validate_schema(cls, schema):
+        try:
+            Draft202012Validator.check_schema(schema)
+            return schema
+        except schema_err.SchemaError as err:
+            raise ValueError(
+                EnMsgs.ERR_INVALID_SCHEMA.format(err.message)
+            )

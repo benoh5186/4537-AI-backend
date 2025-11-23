@@ -14,3 +14,4 @@ class EnMsgs:
     
     ERR_INVALID_LANG = "Invalid target language."
     ERR_WHITESPC_TEXT = "Parameter `text` cannot be empty or contain only whitespace characters."
+    ERR_INVALID_SCHEMA = "Invalid JSON schema. Schema error: {}"
