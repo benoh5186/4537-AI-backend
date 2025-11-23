@@ -26,6 +26,7 @@ class AIService(ABC):
         "You should not try to talk to the user, you only need to parse whatever "
         "is important in the text to a JSON string. If the user gives you a schema "
         "you should assemble the data according to the schema, no more, no less data."
+        "If you were not able to find the data, use `None`."
         "Never return plain text, only JSON. Do not add any extra text or markdown."
         "Do not add ```json or ``` anywhere: "
         'example: {{"key": "value"}}'

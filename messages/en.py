@@ -10,7 +10,7 @@ class EnMsgs:
     NOT_FOUND_RES = "Resource not found"
     
     BAD_REQ_ERR_PREFIX = "[Bad Request]"
-    UNPROC_ENTITY_ERR_PREFIX = "[Unprocessable Entity Error]"
+    UNPROC_ENTITY_ERR_PREFIX = "[Unprocessable Entity Error] The data built using your input is insufficient."
     
     ERR_INVALID_LANG = "Invalid target language."
     ERR_WHITESPC_TEXT = "Parameter `text` cannot be empty or contain only whitespace characters."
