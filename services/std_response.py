@@ -1,4 +1,7 @@
 from typing import Any, ClassVar, Optional, Dict
+from fastapi import Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from messages.en import EnMsgs
 
@@ -75,3 +78,36 @@ class StdResponse(BaseModel):
             code=cls.UNPROC_ENTITY_ERR_CODE
             # No code needed because bad request is already default error code
         )
+        
+    @staticmethod
+    async def validation_err_handler(req: Request, exc: RequestValidationError):
+        """
+        Helper function used by a FastAPI app to parse RequestValidationError's
+        into standard errors from 
+        """
+        
+        # Since the validation error is explicitly raised in this program, 
+        # we know it's the first and only error in the .errors()
+        val_err = exc.errors()[0]
+        val_err_data = StdResponse.__extract_validation_err_info(val_err)
+        res_body = StdResponse.error_bad_req_res(
+            data=val_err_data,
+            message=val_err_data["msg"] # Access the validation msg
+        )
+        return JSONResponse(
+            status_code=StdResponse.STD_ERR_CODE, # Bad Request
+            content=res_body.model_dump()
+        )
+        
+    @staticmethod
+    def __extract_validation_err_info(data: dict[str, Any]):
+        """
+        The data from RequestValidationError inner dicts has to be cleaned up
+        because some of its data is non JSON serializable.
+        """
+        return {
+            "type": data["type"],
+            "location": data["loc"],
+            "msg": data["msg"],
+            "input": data["input"]
+        }

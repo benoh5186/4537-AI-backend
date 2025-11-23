@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
@@ -44,13 +45,19 @@ class WebApiApp:
     
     def __add_routers(self, routers):
         # Add 404 default route
-        @self.app.exception_handler(404)
+        @self.app.exception_handler(StdResponse.NOT_FOUND_ERR_CODE)
         async def not_found_handler(req, exc):
             res_body = StdResponse.error_not_found_res().model_dump()
             return JSONResponse(
                 status_code=StdResponse.NOT_FOUND_ERR_CODE,
                 content=res_body
             )
+        
+        # Add a validation error handler
+        self.app.add_exception_handler(
+            RequestValidationError,
+            StdResponse.validation_err_handler,
+        )
         
         for router in routers:
             self.app.include_router(router, prefix="/v1")
@@ -62,14 +69,12 @@ class WebApiApp:
             allow_methods=["*"]
         )
         
-        # For debugging
+        # For logging and debugging
         @self.app.middleware("http")
         async def log_requests(req: Request, call_next):
             print("Incoming request:", req.method, req.url.path)
             response = await call_next(req)
             return response
-
-        
 
 web_api_app = WebApiApp()
 app = web_api_app.app
