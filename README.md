@@ -111,7 +111,6 @@ The JSON object returned is created based on the syntax and semantics of the tex
 	"status": "error",
 	"code": 400,
 	"message": "[Bad Request]  Parameter `text` cannot be empty or contain only whitespace characters.",
-	"error": true,
 	"data": null
 }
 ```
@@ -130,7 +129,6 @@ The JSON object returned is created based on the syntax and semantics of the tex
 	"status": "error",
 	"code": 400,
 	"message": "[Bad Request] Dangerous prompt instructions are not allowed.",
-	"error": true,
 	"data": null
 }
 ```
@@ -149,7 +147,6 @@ The JSON object returned is created based on the syntax and semantics of the tex
 	"status": "error",
 	"code": 400,
 	"message": "[Bad Request] Invalid target language.",
-	"error": true,
 	"data": null
 }
 ```
@@ -234,7 +231,6 @@ The JSON object returned is created based on the syntax and semantics of the tex
 	"status": "error",
 	"code": 400,
 	"message": "[Bad Request] Parameter `text` cannot contain ASCII control characters.",
-	"error": true,
 	"data": null
 }
 ```
@@ -263,7 +259,6 @@ The JSON object returned is created based on the syntax and semantics of the tex
 	"status": "error",
 	"code": 400,
 	"message": "[Bad Request] Invalid target language.",
-	"error": true,
 	"data": null
 }
 ```
@@ -286,7 +281,6 @@ The JSON object returned is created based on the syntax and semantics of the tex
 	"status": "error",
 	"code": 400,
 	"message": "[Bad Request] Schema does not follow JSON Schema Standard.",
-	"error": true,
 	"data": null
 }
 ```
@@ -315,7 +309,6 @@ The JSON object returned is created based on the syntax and semantics of the tex
 	"status": "error",
 	"code": 422,
 	"message": "[Unprocessable Entity Error] Missing required data in input text to produce a valid output.",
-	"error": true,
 	"data": null
 }
 ```
@@ -357,7 +350,6 @@ The API rejects an input if it's:
 	"status": "error",
 	"code": 400, // Bad request
 	"message": "Internal server error.",
-	"error": true,
 	"data": null | {}
 }
 ```
