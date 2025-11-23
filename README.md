@@ -54,7 +54,7 @@ python -m app
 - **404**: Route Not Found
 
 # Domain
-We will be using #todo`/v1`.
+Using `https://4537-ai-backend-production.up.railway.app/v1` for version 1.
 
 # Endpoints
 
@@ -63,8 +63,9 @@ Route to parse unstructured text into one structured JSON object.
 The JSON object returned is created based on the syntax and semantics of the text.
 - `text` parameter: Unstructured text to be parsed.
 - `lang` parameter: Language in which the output should be structured around.
+    - Both keys and values will be translated to the language.
 	- Should use only language names with 2 letters (e.g. `en`, `es`).
-		- Currently only accepting `en` and `def`. #todo
+		- Currently only accepting `en`, `fr`, and `pt`.
 	- Also accepts `def`, which is default, and lets the AI model to structure the data according in the input text's language(s).
 - Returns a JSON object with the structured data from the text if successful.
 	- See ***Invalid/Rejected Input*** section for more information.
@@ -158,7 +159,9 @@ Route to parse unstructured text into one structured JSON object based on a give
 The JSON object returned is created based on the syntax and semantics of the text.
 - `text` parameter: Unstructured text to be parsed.
 - `lang` parameter: Language in which the output should be structured around.
-	- Should use only language names with 2 letters (e.g. `en`, `es`). Currently only accepting `en` and `def`. #todo
+    - Only the values will be translated to the given language. The keys use the given key names in the schema.
+	- Should use only language names with 2 letters (e.g. `en`, `es`).
+		- Currently only accepting `en`, `fr`, and `pt`.
 	- Also accepts `def`, which is default, and lets the AI model to structure the data according in the input text's language(s).
 - `schema` parameter: Schema used to build the JSON object.
 	- Schema should be valid according to the [JSON Schema Standard](https://json-schema.org).
@@ -348,14 +351,14 @@ The API rejects an input if it's:
 ```
 
 ## On Error
-- `error` can return an object with error logs or more information about the error. Usually under the parameter `err_info`
+- `data` can return an object with error logs or more information about the error or null, depending on the error.
 ```json
 {
 	"status": "error",
 	"code": 400, // Bad request
 	"message": "Internal server error.",
 	"error": true,
-	"data": null
+	"data": null | {}
 }
 ```
 
