@@ -1,7 +1,8 @@
 import json
 import os
 import openai
-from typing import Any, Dict
+import json
+from typing import Any
 from .ai_service import AIService
 from messages.en import EnMsgs
 
@@ -12,6 +13,7 @@ class OpenAIService(AIService):
     
     DEFAULT_MODEL = "gpt-4o"
     AI_RES_IDX = 0 # Index of the AI response in the list of messages
+    SCHEMA_ADD_ON = "Use this schema to build your answer: {}."
     
     _instance = None
     _initialized = None
@@ -48,7 +50,7 @@ class OpenAIService(AIService):
         
         self._initialized = True
 
-    async def generate(self, prompt: str, lang: str = "def") -> Dict[str, Any]:
+    async def generate(self, prompt: str, lang: str = "def", schema: dict[str, Any] = None) -> Any:
         """
         Generates a JSON response from the prompt.
         :param prompt: String used as input to generate the JSON.
@@ -57,6 +59,12 @@ class OpenAIService(AIService):
         if lang == "def":
             lang = self.DEFAULT_LANG
         instructions = self.prompt_in_lang(lang)
+        
+        if schema:
+            # Add schema to the AI API request
+            schema_str = json.dumps(schema)
+            instructions = instructions + self.SCHEMA_ADD_ON.format(schema_str)
+
         response = await self.model.responses.create(
             model=self.model_name,
             instructions=instructions,

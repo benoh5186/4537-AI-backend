@@ -28,8 +28,12 @@ class AIService(ABC):
         "you should assemble the data according to the schema, no more, no less data."
         "Never return plain text, only JSON. Do not add any extra text or markdown."
         "Do not add ```json or ``` anywhere: "
-        'example: {{"key": "value"}}'     
-        f"Give me back the response in {LANG_PROMPT_KEY} (2/3 letters language code)"
+        'example: {{"key": "value"}}'
+        "You can be given a JSON schema. If so, use it to build your answer accordingly."
+        "If there is a schema, only add info to the response that complies to the schema."
+        f"Give me back the response in {LANG_PROMPT_KEY} (2/3 letters language code)."
+        "If no schema, the whole response should be in that language."
+        "If there is a schema, the keys should follow the schema, while the values should be in the specified language."
     )
     
     def __init__(self, model_name: str, system_prompt: str = DEFAULT_SYSTEM_PROMPT):
@@ -37,7 +41,7 @@ class AIService(ABC):
         self.system_prompt = system_prompt
     
     @abstractmethod
-    async def generate(self, prompt: str, lang: str = "def") -> Any:
+    async def generate(self, prompt: str, lang: str = "def", schema: dict[str, Any] = None) -> Any:
         """
         Receive a prompt and use the AI to process.
         Should be stateless.
