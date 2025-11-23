@@ -13,8 +13,8 @@ async def parse_text_to_json(req: StdRequest):
     model = OpenAIService()
     try:
         response = await model.generate(req.text, req.lang)
-        return StdResponse.success_res(response)
+        return StdResponse.success_res(response).to_json_response()
     except ValueError as e:
         return StdResponse.error_bad_req_res(
             message=f"Value Error: {e}"
-        )
+        ).to_json_response()

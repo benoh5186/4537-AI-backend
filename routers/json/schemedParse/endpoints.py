@@ -15,11 +15,11 @@ async def parse_schemed_text_to_json(req: SchemedRequest):
     try:
         response = await model.generate(req.text, req.lang, req.schema)
         jsonschema.validate(instance=response, schema=req.schema)
-        return StdResponse.success_res(response)
+        return StdResponse.success_res(response).to_json_response()
     except ValueError as e:
         return StdResponse.error_bad_req_res(
             message=f"Value Error: {e}"
-        )
+        ).to_json_response()
     except jsonschema.ValidationError as e:
         data={
             "res_generated": response,
@@ -30,4 +30,4 @@ async def parse_schemed_text_to_json(req: SchemedRequest):
         return StdResponse.error_unprocessable_entity_res(
             data=data,
             message=data["message"]
-        )
+        ).to_json_response()

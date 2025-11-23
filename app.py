@@ -47,11 +47,8 @@ class WebApiApp:
         # Add 404 default route
         @self.app.exception_handler(StdResponse.NOT_FOUND_ERR_CODE)
         async def not_found_handler(req, exc):
-            res_body = StdResponse.error_not_found_res().model_dump()
-            return JSONResponse(
-                status_code=StdResponse.NOT_FOUND_ERR_CODE,
-                content=res_body
-            )
+            nf_res = StdResponse.error_not_found_res()
+            return nf_res.to_json_response()
         
         # Add a validation error handler
         self.app.add_exception_handler(

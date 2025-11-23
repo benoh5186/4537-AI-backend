@@ -19,7 +19,13 @@ class StdResponse(BaseModel):
     STD_ERR_CODE: ClassVar[int] = 400
 
     UNPROC_ENTITY_ERR_CODE: ClassVar[int] = 422
-    NOT_FOUND_ERR_CODE: ClassVar[int] = 404    
+    NOT_FOUND_ERR_CODE: ClassVar[int] = 404
+    
+    def to_json_response(self):
+        return JSONResponse(
+            status_code=self.code,
+            content=self.model_dump()
+        )
     
     @classmethod
     def success_res(cls, 
@@ -88,16 +94,13 @@ class StdResponse(BaseModel):
         
         # Since the validation error is explicitly raised in this program, 
         # we know it's the first and only error in the .errors()
-        val_err = exc.errors()[0]
-        val_err_data = StdResponse.__extract_validation_err_info(val_err)
-        res_body = StdResponse.error_bad_req_res(
-            data=val_err_data,
-            message=val_err_data["msg"] # Access the validation msg
+        err = exc.errors()[0]
+        err_data = StdResponse.__extract_validation_err_info(err)
+        err_res = StdResponse.error_bad_req_res(
+            data=err_data,
+            message=err_data["msg"] # Access the validation msg
         )
-        return JSONResponse(
-            status_code=StdResponse.STD_ERR_CODE, # Bad Request
-            content=res_body.model_dump()
-        )
+        return err_res.to_json_response()
         
     @staticmethod
     def __extract_validation_err_info(data: dict[str, Any]):
