@@ -354,6 +354,9 @@ The API rejects an input if it's:
 }
 ```
 
+# AI Recognition
+We used ChatGPT and Perplexity for help at thinking on design decisions and research. The code was still written by use.
+
 # Authors
 - Minwook (Ben) Oh - [benoh5186](https://github.com/benoh5186)
 - Seohyeon (Ethan) Park - [ethan8663](https://github.com/ethan8663)
